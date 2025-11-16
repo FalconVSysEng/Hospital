@@ -258,6 +258,14 @@ public class GatewayRoutesConfig {
                 .filter(AuthorizationFilter.ofAny(Role.ADMIN.getRoleName())))
             .uri("lb://schedule-service"))
 
+        .route("update_schedule", r -> r
+            .path("/api/schedules/{id}")
+            .and().method(HttpMethod.PUT)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(Role.ADMIN.getRoleName())))
+            .uri("lb://schedule-service"))
+
         .route("get_schedule_by_id", r -> r
             .path("/api/schedules/{id}")
             .and().method(HttpMethod.GET)
@@ -406,6 +414,14 @@ public class GatewayRoutesConfig {
                 .filter(AuthorizationFilter.ofAny(Role.ADMIN.getRoleName())))
             .uri("lb://medical-history-service"))
 
+        .route("update_medical_history", r -> r
+            .path("/api/medical-histories/{id}")
+            .and().method(HttpMethod.PUT)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(Role.ADMIN.getRoleName())))
+            .uri("lb://medical-history-service"))
+
         .route("get_medical_history_by_id", r -> r
             .path("/api/medical-histories/{id}")
             .and().method(HttpMethod.GET)
@@ -479,6 +495,14 @@ public class GatewayRoutesConfig {
                 .stripPrefix(1)
                 .filter(AuthorizationFilter.ofAny(Role.ADMIN.getRoleName())))
             .uri("lb://receipt-service"))
+
+        // .route("update_receipt", r -> r
+        //     .path("/api/receipts/{id}")
+        //     .and().method(HttpMethod.PUT)
+        //     .filters(f -> f
+        //         .stripPrefix(1)
+        //         .filter(AuthorizationFilter.ofAny(Role.ADMIN.getRoleName())))
+        //     .uri("lb://receipt-service"))
 
         .route("get_receipt_by_id", r -> r
             .path("/api/receipts/{id}")
