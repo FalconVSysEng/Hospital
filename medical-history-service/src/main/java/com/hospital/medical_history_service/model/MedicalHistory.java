@@ -32,14 +32,14 @@ public class MedicalHistory {
   @Column(nullable = false)
   private String employeeDni;
 
-  private BigDecimal height;
-  private BigDecimal weight;
+  private BigDecimal height; // atura
+  private BigDecimal weight; // peso
 
   @Column(nullable = false)
   private LocalDateTime createdAt;
 
   @Column(nullable = false)
-  private LocalDateTime updatedAt;
+  private LocalDateTime updatedAt; // se actuliza en PUT
 
   private Boolean status;
 }

@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hospital.medical_history_service.dto.MedicalHistoryRequestDTO;
 import com.hospital.medical_history_service.dto.MedicalHistoryResponseDTO;
+import com.hospital.medical_history_service.dto.MedicalHistoryUpdateDTO;
 import com.hospital.medical_history_service.service.MedicalHistoryService;
 
 import jakarta.validation.Valid;
@@ -89,6 +91,14 @@ public class MedicalHistoryController {
   public ResponseEntity<Void> enableMedicalHistory(@PathVariable Long id) {
     medicalHistoryService.enableMedicalHistory(id);
     return ResponseEntity.noContent().build();
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<MedicalHistoryResponseDTO> updateMedicalHistory(
+      @PathVariable Long id,
+      @Valid @RequestBody MedicalHistoryUpdateDTO dto) {
+    MedicalHistoryResponseDTO receipt = medicalHistoryService.updateMedicalHistory(id, dto);
+    return ResponseEntity.ok(receipt);
   }
 
 }

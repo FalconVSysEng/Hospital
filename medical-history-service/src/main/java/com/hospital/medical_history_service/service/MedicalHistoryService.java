@@ -13,6 +13,7 @@ import com.hospital.medical_history_service.client.PatientServiceClient;
 import com.hospital.medical_history_service.dto.EmployeeDTO;
 import com.hospital.medical_history_service.dto.MedicalHistoryRequestDTO;
 import com.hospital.medical_history_service.dto.MedicalHistoryResponseDTO;
+import com.hospital.medical_history_service.dto.MedicalHistoryUpdateDTO;
 import com.hospital.medical_history_service.dto.PatientDTO;
 import com.hospital.medical_history_service.model.MedicalHistory;
 import com.hospital.medical_history_service.repository.MedicalHistoryRepository;
@@ -130,6 +131,20 @@ public class MedicalHistoryService {
     medicalHistory.setStatus(true);
     medicalHistory.setUpdatedAt(LocalDateTime.now());
     medicalHistoryRepository.save(medicalHistory);
+  }
+
+  public MedicalHistoryResponseDTO updateMedicalHistory(Long id, MedicalHistoryUpdateDTO medicalHistoryUpdateDTO) {
+    @SuppressWarnings("null")
+    MedicalHistory medicalHistory = medicalHistoryRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Historia médica no encontrada con ID: " + id));
+
+    medicalHistory.setWeight(medicalHistoryUpdateDTO.getWeight());
+    medicalHistory.setHeight(medicalHistoryUpdateDTO.getHeight());
+    medicalHistory.setUpdatedAt(LocalDateTime.now());
+
+    MedicalHistory updatedMedicalHistory = medicalHistoryRepository.save(medicalHistory);
+
+    return mapToResponseDTO(updatedMedicalHistory);
   }
 
   private <T> T getServiceData(Supplier<T> serviceCall) {
