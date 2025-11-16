@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: false
+
+jwt:
+  secret: ukRFZJrRUFz88VcfNU6kiomFXmgBhS8pDnoUuSmH+UM=
