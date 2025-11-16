@@ -14,6 +14,7 @@ import com.hospital.receipt_service.dto.EmployeeDTO;
 import com.hospital.receipt_service.dto.MedicalAppointmentDTO;
 import com.hospital.receipt_service.dto.ReceiptRequestDTO;
 import com.hospital.receipt_service.dto.ReceiptResponseDTO;
+// import com.hospital.receipt_service.dto.ReceiptUpdateDTO;
 import com.hospital.receipt_service.model.Receipt;
 import com.hospital.receipt_service.model.Status;
 import com.hospital.receipt_service.repository.ReceiptRepository;
@@ -108,6 +109,20 @@ public class ReceiptService {
     receipt.setStatus(status);
     receiptRepository.save(receipt);
   }
+
+  // public ReceiptResponseDTO updateReceipt(Long id, ReceiptUpdateDTO dto) {
+  //   @SuppressWarnings("null")
+  //   Receipt receipt = receiptRepository.findById(id)
+  //       .orElseThrow(() -> new IllegalArgumentException("Boleta no encontrada con ID: " + id));
+
+  //   receipt.setPaymentMethod(dto.getPaymentMethod());
+  //   receipt.setRuc(dto.getRuc());
+  //   receipt.setCompanyName(dto.getCompanyName());
+
+  //   Receipt updatedReceipt = receiptRepository.save(receipt);
+
+  //   return mapToResponseDTO(updatedReceipt);
+  // }
 
   private <T> T getServiceData(Supplier<T> serviceCall) {
     try {
