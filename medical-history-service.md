@@ -204,4 +204,27 @@ Servicio encargado de la gestión de historiales médicos de los pacientes. Mane
 **Validaciones:**
 - El historial médico con el ID especificado debe existir
 
+#### 10. Actualizar Historial Médico
+
+**Método:** `PUT`
+
+**URL:** `/api/medical-histories/{id}`
+
+**Protegida:** ✅ Sí (Requiere rol: ADMIN)
+
+**Descripción:** Actualizar campos de "height" y "weight" de una historia médica.
+
+**Request Body:**
+```javascript
+{
+  height: number,       // Altura del paciente en metros (opcional, mayor a 0)
+  weight: number,       // Peso del paciente en kg (opcional, mayor a 0)
+}
+```
+
+**Response (204 No Content):** Sin contenido
+
+**Validaciones:**
+- El historial médico con el ID especificado debe existir
+
 ---

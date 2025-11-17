@@ -239,4 +239,28 @@ Servicio encargado de la gestión de horarios médicos. Maneja la creación, con
 **Validaciones:**
 - El horario con el ID especificado debe existir
 
+#### 11. Actualizar Horario
+
+**Método:** `PUT`
+
+**URL:** `/api/schedules/{id}`
+
+**Protegida:** ✅ Sí (Requiere rol: ADMIN)
+
+**Descripción:** Actualizar el campo del consultorio relacionado al horario.
+
+**Request Body:**
+```javascript
+{
+  officeId: number,     // ID del consultorio (requerido)
+}
+```
+
+**Response (200 OK):** Array con la misma estructura del objeto de respuesta del endpoint de creación.
+
+**Validaciones:**
+- Todos los campos marcados como requeridos son obligatorios
+- El consultorio debe existir y soportar la especialidad
+- El consultorio no debe tener un horario registrdo en el rango de tiempo del horario a actualizar
+
 ---
