@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.hospital.appointment_service.client.EmployeeServiceClient;
@@ -20,6 +21,7 @@ import com.hospital.appointment_service.dto.EmployeeDTO;
 import com.hospital.appointment_service.dto.OfficeDTO;
 import com.hospital.appointment_service.dto.PatientDTO;
 import com.hospital.appointment_service.dto.ScheduleDTO;
+import com.hospital.appointment_service.exception.CustomException;
 import com.hospital.appointment_service.model.Appointment;
 import com.hospital.appointment_service.model.Status;
 import com.hospital.appointment_service.repository.AppointmentRepository;
@@ -39,38 +41,38 @@ public class AppointmentService {
   public AppointmentResponseDTO createAppointment(AppointmentRequestDTO dto) {
     ScheduleDTO schedule = scheduleServiceClient.getScheduleById(dto.getScheduleId());
     if (schedule == null) {
-      throw new IllegalArgumentException("Horario no encontrado con ID: " + dto.getScheduleId());
+      throw new CustomException("Horario no encontrado con ID: " + dto.getScheduleId(), HttpStatus.NOT_FOUND);
     }
     if (Boolean.FALSE.equals(schedule.getStatus())) {
-      throw new IllegalArgumentException("El horario está deshabilitado");
+      throw new CustomException("El horario está deshabilitado", HttpStatus.BAD_REQUEST);
     }
 
     EmployeeDTO employee = employeeServiceClient.getEmployeeByDni(dto.getEmployeeDni());
     if (employee == null) {
-      throw new IllegalArgumentException("Empleado no encontrado con DNI: " + dto.getEmployeeDni());
+      throw new CustomException("Empleado no encontrado con DNI: " + dto.getEmployeeDni(), HttpStatus.NOT_FOUND);
     }
     if (Boolean.FALSE.equals(employee.getIsEnabled())) {
-      throw new IllegalArgumentException("El empleado está deshabilitado");
+      throw new CustomException("El empleado está deshabilitado", HttpStatus.BAD_REQUEST);
     }
 
     PatientDTO patient = patientServiceClient.getPatientById(dto.getPatientId());
     if (patient == null) {
-      throw new IllegalArgumentException("Paciente no encontrado con ID: " + dto.getPatientId());
+      throw new CustomException("Paciente no encontrado con ID: " + dto.getPatientId(), HttpStatus.NOT_FOUND);
     }
     if (Boolean.FALSE.equals(patient.getStatus())) {
-      throw new IllegalArgumentException("El paciente está deshabilitado");
+      throw new CustomException("El paciente está deshabilitado", HttpStatus.BAD_REQUEST);
     }
 
     OfficeDTO office = officeServiceClient.getOfficeById(schedule.getOffice().getId());
     if (office == null) {
-      throw new IllegalArgumentException("Consultorio no encontrado con ID: " + schedule.getOffice().getId());
+      throw new CustomException("Consultorio no encontrado con ID: " + schedule.getOffice().getId(), HttpStatus.NOT_FOUND);
     }
     if (Boolean.FALSE.equals(office.getStatus())) {
-      throw new IllegalArgumentException("El consultorio está deshabilitado");
+      throw new CustomException("El consultorio está deshabilitado", HttpStatus.BAD_REQUEST);
     }
 
     if (appointmentRepository.existsByScheduleId(dto.getScheduleId())) {
-      throw new IllegalArgumentException("El horario ya está asignado a otra cita");
+      throw new CustomException("El horario ya está asignado a otra cita", HttpStatus.CONFLICT);
     }
 
     // BigDecimal finalCost = calculateFinalCost(schedule);
@@ -117,7 +119,7 @@ public class AppointmentService {
   public AppointmentResponseDTO getAppointmentById(Long id) {
     @SuppressWarnings("null")
     Appointment appointment = appointmentRepository.findById(id)
-        .orElseThrow(() -> new IllegalArgumentException("Cita no encontrada con ID: " + id));
+        .orElseThrow(() -> new CustomException("Cita no encontrada con ID: " + id, HttpStatus.NOT_FOUND));
     return mapToResponseDTO(appointment);
   }
 
@@ -144,7 +146,7 @@ public class AppointmentService {
 
   public List<AppointmentResponseDTO> getAppointmentsByDateTimeRange(LocalDateTime start, LocalDateTime end) {
     if (start.isAfter(end) || start.isEqual(end)) {
-      throw new IllegalArgumentException("La fecha/hora de inicio debe ser anterior a la de fin");
+      throw new CustomException("La fecha/hora de inicio debe ser anterior a la de fin", HttpStatus.BAD_REQUEST);
     }
     List<Appointment> appointments = appointmentRepository.findBySolicitationDateTimeBetween(start, end);
     return appointments.stream()
@@ -155,7 +157,7 @@ public class AppointmentService {
   public void updateAppointmentStatus(Long id, Status status) {
     @SuppressWarnings("null")
     Appointment appointment = appointmentRepository.findById(id)
-        .orElseThrow(() -> new IllegalArgumentException("Cita no encontrada con ID: " + id));
+        .orElseThrow(() -> new CustomException("Cita no encontrada con ID: " + id, HttpStatus.NOT_FOUND));
     appointment.setStatus(status);
     appointmentRepository.save(appointment);
   }
