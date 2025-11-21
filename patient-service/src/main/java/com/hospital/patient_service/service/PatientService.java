@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.hospital.patient_service.dto.PatientRequestDTO;
 import com.hospital.patient_service.dto.PatientResponseDTO;
+import com.hospital.patient_service.exception.CustomException;
 import com.hospital.patient_service.model.Patient;
 import com.hospital.patient_service.repository.PatientRepository;
 
@@ -22,7 +24,7 @@ public class PatientService {
 
   public PatientResponseDTO createPatient(PatientRequestDTO dto) {
     if (patientRepository.findByDni(dto.getDni()).isPresent()) {
-      throw new IllegalArgumentException("El paciente con DNI: " + dto.getDni() + " ya existe.");
+      throw new CustomException("El paciente con DNI: " + dto.getDni() + " ya existe.", HttpStatus.CONFLICT);
     }
 
     Patient patient = modelMapper.map(dto, Patient.class);
@@ -41,14 +43,14 @@ public class PatientService {
   @SuppressWarnings("null")
   public PatientResponseDTO getPatientById(Long id) {
     Patient patient = patientRepository.findById(id)
-        .orElseThrow(() -> new IllegalArgumentException("Paciente no encontrado con ID: " + id));
+        .orElseThrow(() -> new CustomException("Paciente no encontrado con ID: " + id, HttpStatus.NOT_FOUND));
 
     return modelMapper.map(patient, PatientResponseDTO.class);
   }
 
   public PatientResponseDTO getPatientByDni(String dni) {
     Patient patient = patientRepository.findByDni(dni)
-        .orElseThrow(() -> new IllegalArgumentException("Paciente no encontrado con DNI: " + dni));
+        .orElseThrow(() -> new CustomException("Paciente no encontrado con DNI: " + dni, HttpStatus.NOT_FOUND));
 
     return modelMapper.map(patient, PatientResponseDTO.class);
   }
@@ -56,7 +58,7 @@ public class PatientService {
   @SuppressWarnings("null")
   public void disablePatient(Long id) {
     Patient patient = patientRepository.findById(id)
-        .orElseThrow(() -> new IllegalArgumentException("Paciente no encontrado con ID: " + id));
+        .orElseThrow(() -> new CustomException("Paciente no encontrado con ID: " + id, HttpStatus.NOT_FOUND));
 
     patient.setStatus(false);
     patientRepository.save(patient);
@@ -65,7 +67,7 @@ public class PatientService {
   @SuppressWarnings("null")
   public void enablePatient(Long id) {
     Patient patient = patientRepository.findById(id)
-        .orElseThrow(() -> new IllegalArgumentException("Paciente no encontrado con ID: " + id));
+        .orElseThrow(() -> new CustomException("Paciente no encontrado con ID: " + id, HttpStatus.NOT_FOUND));
 
     patient.setStatus(true);
     patientRepository.save(patient);
