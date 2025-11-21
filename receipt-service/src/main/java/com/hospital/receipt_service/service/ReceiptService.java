@@ -6,11 +6,13 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.hospital.receipt_service.client.AppointmentServiceClient;
 import com.hospital.receipt_service.client.EmployeeServiceClient;
 import com.hospital.receipt_service.dto.EmployeeDTO;
+import com.hospital.receipt_service.exception.CustomException;
 import com.hospital.receipt_service.dto.MedicalAppointmentDTO;
 import com.hospital.receipt_service.dto.ReceiptRequestDTO;
 import com.hospital.receipt_service.dto.ReceiptResponseDTO;
@@ -32,15 +34,15 @@ public class ReceiptService {
   public ReceiptResponseDTO createReceipt(ReceiptRequestDTO dto) {
     EmployeeDTO employee = employeeServiceClient.getEmployeeByDni(dto.getEmployeeDni());
     if (employee == null) {
-      throw new IllegalArgumentException("Empleado no encontrado con DNI: " + dto.getEmployeeDni());
+      throw new CustomException("Empleado no encontrado con DNI: " + dto.getEmployeeDni(), HttpStatus.NOT_FOUND);
     }
     if (Boolean.FALSE.equals(employee.getIsEnabled())) {
-      throw new IllegalArgumentException("El empleado está deshabilitado");
+      throw new CustomException("El empleado está deshabilitado", HttpStatus.BAD_REQUEST);
     }
 
     MedicalAppointmentDTO appointment = appointmentServiceClient.getAppointmentById(dto.getAppointmentId());
     if (appointment == null) {
-      throw new IllegalArgumentException("Cita médica no encontrada con ID: " + dto.getAppointmentId());
+      throw new CustomException("Cita médica no encontrada con ID: " + dto.getAppointmentId(), HttpStatus.NOT_FOUND);
     }
 
     Receipt receipt = Receipt.builder()
@@ -74,7 +76,7 @@ public class ReceiptService {
   public ReceiptResponseDTO getReceiptById(Long id) {
     @SuppressWarnings("null")
     Receipt receipt = receiptRepository.findById(id)
-        .orElseThrow(() -> new IllegalArgumentException("Boleta no encontrada con ID: " + id));
+        .orElseThrow(() -> new CustomException("Boleta no encontrada con ID: " + id, HttpStatus.NOT_FOUND));
     return mapToResponseDTO(receipt);
   }
 
@@ -94,7 +96,7 @@ public class ReceiptService {
 
   public List<ReceiptResponseDTO> getReceiptsByCreatedAtRange(LocalDateTime start, LocalDateTime end) {
     if (start.isAfter(end) || start.isEqual(end)) {
-      throw new IllegalArgumentException("La fecha/hora de inicio debe ser anterior a la de fin");
+      throw new CustomException("La fecha/hora de inicio debe ser anterior a la de fin", HttpStatus.BAD_REQUEST);
     }
     List<Receipt> receipts = receiptRepository.findByCreatedAtBetween(start, end);
     return receipts.stream()
@@ -105,7 +107,7 @@ public class ReceiptService {
   public void updateReceiptStatus(Long id, Status status) {
     @SuppressWarnings("null")
     Receipt receipt = receiptRepository.findById(id)
-        .orElseThrow(() -> new IllegalArgumentException("Boleta no encontrada con ID: " + id));
+        .orElseThrow(() -> new CustomException("Boleta no encontrada con ID: " + id, HttpStatus.NOT_FOUND));
     receipt.setStatus(status);
     receiptRepository.save(receipt);
   }
