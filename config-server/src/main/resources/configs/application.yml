@@ -18,3 +18,10 @@ eureka:
 logging:
   pattern:
     console: "%d{HH:mm} %highlight(%level) %msg%n"
+  level:
+    org:
+      springframework:
+        cloud:
+          loadbalancer:
+            core:
+              ServiceInstanceListSupplierBuilder: ERROR
