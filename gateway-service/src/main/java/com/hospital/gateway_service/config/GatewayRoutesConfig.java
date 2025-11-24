@@ -544,6 +544,76 @@ public class GatewayRoutesConfig {
                 .filter(AuthorizationFilter.ofAny(Role.ADMIN.getRoleName())))
             .uri("lb://receipt-service"))
 
+
+        // -------------------------------------------------------------------//
+        .route("create_medical_attention", r -> r
+            .path("/api/medical-attention")
+            .and().method(HttpMethod.POST)
+            .filters(f -> f
+                .stripPrefix(1) // /api/medical-attention -> /medical-attention
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName(),
+                    Role.DOCTOR.getRoleName()
+                )))
+            .uri("lb://medical-attention-service"))
+
+        .route("get_all_medical_attentions", r -> r
+            .path("/api/medical-attention")
+            .and().method(HttpMethod.GET)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName(),
+                    Role.DOCTOR.getRoleName()
+                )))
+            .uri("lb://medical-attention-service"))
+
+        .route("get_medical_attention_by_id", r -> r
+            .path("/api/medical-attention/{id}")
+            .and().method(HttpMethod.GET)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName(),
+                    Role.DOCTOR.getRoleName()
+                )))
+            .uri("lb://medical-attention-service"))
+
+        .route("get_medical_attention_by_doctor", r -> r
+            .path("/api/medical-attention/by-doctor/{doctorId}")
+            .and().method(HttpMethod.GET)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName(),
+                    Role.DOCTOR.getRoleName()
+                )))
+            .uri("lb://medical-attention-service"))
+
+        .route("update_medical_attention", r -> r
+            .path("/api/medical-attention/{id}")
+            .and().method(HttpMethod.PUT)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName(),
+                    Role.DOCTOR.getRoleName()
+                )))
+            .uri("lb://medical-attention-service"))
+
+        .route("delete_medical_attention", r -> r
+            .path("/api/medical-attention/{id}")
+            .and().method(HttpMethod.DELETE)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName(),
+                    Role.DOCTOR.getRoleName()
+                )))
+            .uri("lb://medical-attention-service"))
+        // ----------------------------------------------------//
+
+        
         .build();
   }
 }
