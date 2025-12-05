@@ -17,6 +17,8 @@ import com.hospital.medical_attention_service.dto.MedicalAttentionRequestDTO;
 import com.hospital.medical_attention_service.dto.MedicalAttentionResponse;
 import com.hospital.medical_attention_service.dto.MedicalAttentionSimpleResponse;
 import com.hospital.medical_attention_service.dto.MedicalHistoryDTO;
+import com.hospital.medical_attention_service.dto.NewAttentionRequestDTO;
+import com.hospital.medical_attention_service.dto.NewAttentionResponseDTO;
 import com.hospital.medical_attention_service.dto.external.AppointmentResponseDTO;
 import com.hospital.medical_attention_service.dto.external.MedicalHistoryResponseDTO;
 import com.hospital.medical_attention_service.exception.CustomException;
@@ -149,6 +151,43 @@ public class MedicalAttentionService {
         .treatment(medicalAttention.getTreatment())
         .notes(medicalAttention.getNotes())
         .build();
+  }
+
+  public NewAttentionResponseDTO getDataForNewAttention(NewAttentionRequestDTO request) {
+
+    // 1) Validar cita médica (appointment)
+    AppointmentResponseDTO appointmentResponse = appointmentServiceClient.getAppointmentById(request.getAppointmentId());
+
+    if (appointmentResponse == null) {
+      throw new RuntimeException("La cita médica no existe.");
+    }
+
+    // 2) Validar doctor (OJO: tu client busca por DNI)
+    DoctorDTO doctorResponse = doctorServiceClient.getDoctorByDni(request.getDoctorDni());
+
+    if (doctorResponse == null) {
+      throw new RuntimeException("El doctor no existe.");
+    }
+
+    // 3) Validar historia médica
+    MedicalHistoryResponseDTO historyResponse = medicalHistoryServiceClient.getMedicalHistoryById(request.getMedicalHistoryId());
+
+    if (historyResponse == null) {
+      throw new RuntimeException("La historia médica no existe.");
+    }
+
+    // 4) Convertir usando tu mapper existente
+    AppointmentDTO appointmentDTO = mapper.toAppointmentDTO(appointmentResponse);
+    DoctorDTO doctorDTO = mapper.toDoctorDTO(doctorResponse);
+    MedicalHistoryDTO historyDTO = mapper.toMedicalHistoryDTO(historyResponse);
+
+    // 5) Preparar respuesta final
+    NewAttentionResponseDTO response = new NewAttentionResponseDTO();
+    response.setAppointment(appointmentDTO);
+    response.setDoctor(doctorDTO);
+    response.setMedicalHistory(historyDTO);
+
+    return response;
   }
 
   private DoctorDTO getDoctorOrThrow(String dni) {
