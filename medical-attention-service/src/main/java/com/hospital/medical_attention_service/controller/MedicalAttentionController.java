@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hospital.medical_attention_service.dto.MedicalAttentionRequestDTO;
 import com.hospital.medical_attention_service.dto.MedicalAttentionResponse;
 import com.hospital.medical_attention_service.dto.MedicalAttentionSimpleResponse;
+import com.hospital.medical_attention_service.dto.NewAttentionRequestDTO;
+import com.hospital.medical_attention_service.dto.NewAttentionResponseDTO;
 import com.hospital.medical_attention_service.service.MedicalAttentionService;
 
 import jakarta.validation.Valid;
@@ -60,13 +62,19 @@ public class MedicalAttentionController {
 
   @GetMapping("/medical-history/{medicalHistoryId}")
   public ResponseEntity<List<MedicalAttentionSimpleResponse>> getByMedicalHistory(
-          @PathVariable Long medicalHistoryId) {
-      return ResponseEntity.ok(medicalAttentionService.getByMedicalHistoryId(medicalHistoryId));
+      @PathVariable Long medicalHistoryId) {
+    return ResponseEntity.ok(medicalAttentionService.getByMedicalHistoryId(medicalHistoryId));
   }
 
   @GetMapping("/medical-history/{medicalHistoryId}/simple")
   public ResponseEntity<List<MedicalAttentionSimpleResponse>> getByMedicalHistorySimple(
-          @PathVariable Long medicalHistoryId) {
-      return ResponseEntity.ok(medicalAttentionService.getByMedicalHistoryIdSimple(medicalHistoryId));
+      @PathVariable Long medicalHistoryId) {
+    return ResponseEntity.ok(medicalAttentionService.getByMedicalHistoryIdSimple(medicalHistoryId));
+  }
+
+  @PostMapping("/new-attention")
+  public ResponseEntity<NewAttentionResponseDTO> getDataForNewAttention(
+      @RequestBody NewAttentionRequestDTO request) {
+    return ResponseEntity.ok(medicalAttentionService.getDataForNewAttention(request));
   }
 }
