@@ -57,7 +57,14 @@ Servicio encargado de la gestión de historiales médicos de los pacientes. Mane
   status: boolean,               // Estado del historial - opcional
   medicalAttentions: [           // Lista de atenciones médicas
     {
-      id: number                 // ID de la atención médica
+      id: number,
+      diagnosis: string,
+      treatment: string,
+      notes: string,
+      attentionDateTime: string,
+      doctor: {
+        datos
+      }
     }
   ]
 }
