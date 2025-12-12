@@ -8,6 +8,6 @@ import com.hospital.analysis_sheet_service.dto.MedicalAttentionDTO;
 
 @FeignClient(name = "medical-attention-service")
 public interface MedicalAttentionServiceClient {
-    @GetMapping("/medical-attention/{Id}/simple")
-    MedicalAttentionDTO getAttentionByIdSimple(@PathVariable Long medicalAttentionId);
+    @GetMapping("/medical-attention/{id}/simple")
+    MedicalAttentionDTO getAttentionByIdSimple(@PathVariable Long id);
 }

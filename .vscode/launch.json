@@ -170,6 +170,17 @@
       "mainClass": "com.hospital.analysis_cart.AnalysisCartApplication",
       "projectName": "analysis-cart",
       "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=55515 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=analysis-cart"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-AnalysisSheetServiceApplication<analysis-sheet-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.hospital.analysis_sheet_service.AnalysisSheetServiceApplication",
+      "projectName": "analysis-sheet-service",
+      "args": "",
       "envFile": "${workspaceFolder}/.env"
     }
   ]

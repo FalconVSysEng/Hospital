@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TypeAnalysisDTO {
+public class AnalysisSheetLineResponseDTO {
     private Long id;
-    private String name;
-    private String description;
-    private Boolean status;
+    private TypeAnalysisDTO typeAnalysis;
+    private String observations;
+    private Integer quantity;
 }

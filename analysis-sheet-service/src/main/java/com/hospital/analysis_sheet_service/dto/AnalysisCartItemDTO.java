@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AnalysisCartItemDTO {
     private Long id;
-    private Long typeAnalysisId;
+    private TypeAnalysisDTO typeAnalysis;
     private Long analysisSheetId;
     private String observations;
     private Integer quantity;

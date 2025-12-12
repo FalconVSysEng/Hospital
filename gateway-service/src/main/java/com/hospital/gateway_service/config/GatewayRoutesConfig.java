@@ -631,6 +631,7 @@ public class GatewayRoutesConfig {
                     Role.ADMIN.getRoleName()
                 )))
             .uri("lb://medical-attention-service"))
+
         // ------------------------------------ TIPO ANALISIS ----------------//
 
         .route("create_type_analysis", r -> r
@@ -696,7 +697,7 @@ public class GatewayRoutesConfig {
                 )))
             .uri("lb://analysis-cart"))
 
-        .route("get_all_type_analysis", r -> r
+        .route("get_all_item_analysis_cart", r -> r
             .path("/api/analysis-cart/listar")
             .and().method(HttpMethod.GET)
             .filters(f -> f
@@ -726,6 +727,101 @@ public class GatewayRoutesConfig {
                 )))
             .uri("lb://analysis-cart"))
         
+
+        //----------------------------- FICHA ANALISIS -----------------------//
+
+        .route("crear_analysis_sheets", r -> r
+            .path("/api/analysis-sheets")
+            .and().method(HttpMethod.POST)
+            .filters(f -> f
+                .stripPrefix(1) // /api/type-analysis -> /type-analysis
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName()
+                )))
+            .uri("lb://analysis-sheet-service"))
+
+        .route("get_analysis_sheets_by_id", r -> r
+            .path("/api/analysis-sheets/{id}")
+            .and().method(HttpMethod.GET)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName()
+                )))
+            .uri("lb://analysis-sheet-service"))
+
+        .route("get_all_analysis_sheets", r -> r
+            .path("/api/analysis-sheets/listar")
+            .and().method(HttpMethod.GET)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName()
+                )))
+            .uri("lb://analysis-sheet-service"))
+
+        .route("confirmar_analysis_sheets", r -> r
+            .path("/api/analysis-sheets/{id}/confirm")
+            .and().method(HttpMethod.POST)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName()
+                )))
+            .uri("lb://analysis-sheet-service"))
+
+        // ------------------------------------ TIPO ANALISIS ----------------//
+
+        .route("create_medicine", r -> r
+            .path("/api/medicine")
+            .and().method(HttpMethod.POST)
+            .filters(f -> f
+                .stripPrefix(1) // /api/type-analysis -> /type-analysis
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName()
+                )))
+            .uri("lb://medicine-service"))
+
+        .route("get_all_type_analysis", r -> r
+            .path("/api/type-analysis")
+            .and().method(HttpMethod.GET)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName()
+                )))
+            .uri("lb://type-analysis-service"))
+
+        .route("get_type_analysis_by_id", r -> r
+            .path("/api/type-analysis/{id}")
+            .and().method(HttpMethod.GET)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName()
+                )))
+            .uri("lb://type-analysis-service"))
+
+        .route("update_type_analysis", r -> r
+            .path("/api/type_analysis/{id}")
+            .and().method(HttpMethod.PUT)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName()
+                )))
+            .uri("lb://type_analysis-service"))
+
+        .route("delete_type_analysis", r -> r
+            .path("/api/type_analysis/{id}")
+            .and().method(HttpMethod.DELETE)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName()
+                )))
+            .uri("lb://type_analysis-service"))
+
         //----------------------------------------------------//
         
         .build();

@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @Builder
-@Table(name = "medicine")
+@Table(name = "analysis_sheet_line")
 @NoArgsConstructor
 public class AnalysisSheetLine {
     @Id

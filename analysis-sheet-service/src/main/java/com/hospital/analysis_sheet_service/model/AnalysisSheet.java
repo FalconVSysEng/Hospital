@@ -17,12 +17,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @Builder
-@Table(name = "medicine")
+@Table(name = "analysis_sheet")
 @NoArgsConstructor
 public class AnalysisSheet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
+    private String doctorDni;
     @Column(nullable = false)
     private Long attentionId; 
     private String status; 
