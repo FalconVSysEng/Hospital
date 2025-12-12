@@ -32,12 +32,12 @@ public class AnalysisSheetService {
     public AnalysisSheet crear(AnalysisSheet sheet) {
         // Validar existencia de la atención
         try {
-            MedicalAttentionDTO att = attentionClient.getAttention(sheet.getAttentionId());
+            MedicalAttentionDTO att = attentionClient.getAttentionByIdSimple(sheet.getAttentionId());
             if (att == null) {
-                return null; // o lanzar excepción
+                return null; 
             }
         } catch (Exception e) {
-            return null; // la atención no existe o no responde
+            return null;
         }
         sheet.setCreatedAt(LocalDateTime.now());
         sheet.setStatus("Pending");
