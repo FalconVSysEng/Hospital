@@ -1,4 +1,4 @@
-package com.hospital.dto;
+package com.hospital.type_analysis_service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

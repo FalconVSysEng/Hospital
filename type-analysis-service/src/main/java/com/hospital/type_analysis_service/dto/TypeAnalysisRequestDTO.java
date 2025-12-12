@@ -1,4 +1,4 @@
-package com.hospital.dto;
+package com.hospital.type_analysis_service.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

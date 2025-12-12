@@ -149,6 +149,16 @@
       "projectName": "receipt-service",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-TypeAnalysisServiceApplication<type-analysis-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.hospital.type_analysis_service.TypeAnalysisServiceApplication",
+      "projectName": "type-analysis-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }

@@ -1,14 +1,14 @@
-package com.hospital.service;
+package com.hospital.type_analysis_service.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.hospital.dto.TypeAnalysisRequestDTO;
-import com.hospital.dto.TypeAnalysisResponseDTO;
-import com.hospital.model.TypeAnalysis;
-import com.hospital.repository.TypeAnalysisRepository;
+import com.hospital.type_analysis_service.dto.TypeAnalysisRequestDTO;
+import com.hospital.type_analysis_service.dto.TypeAnalysisResponseDTO;
+import com.hospital.type_analysis_service.model.TypeAnalysis;
+import com.hospital.type_analysis_service.repository.TypeAnalysisRepository;
 
 import lombok.RequiredArgsConstructor;
 

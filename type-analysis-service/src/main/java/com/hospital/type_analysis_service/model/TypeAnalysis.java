@@ -1,4 +1,4 @@
-package com.hospital.model;
+package com.hospital.type_analysis_service.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
