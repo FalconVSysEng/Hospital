@@ -770,59 +770,106 @@ public class GatewayRoutesConfig {
                 )))
             .uri("lb://analysis-sheet-service"))
 
-        // ------------------------------------ TIPO ANALISIS ----------------//
+        // ------------------------------------ TIPO MEDICINA ----------------//
 
         .route("create_medicine", r -> r
             .path("/api/medicine")
             .and().method(HttpMethod.POST)
             .filters(f -> f
-                .stripPrefix(1) // /api/type-analysis -> /type-analysis
+                .stripPrefix(1) // /api/medicine -> /medicine
                 .filter(AuthorizationFilter.ofAny(
                     Role.ADMIN.getRoleName()
                 )))
             .uri("lb://medicine-service"))
 
-        .route("get_all_type_analysis", r -> r
-            .path("/api/type-analysis")
+        .route("get_all_medicine", r -> r
+            .path("/api/medicine")
             .and().method(HttpMethod.GET)
             .filters(f -> f
                 .stripPrefix(1)
                 .filter(AuthorizationFilter.ofAny(
                     Role.ADMIN.getRoleName()
                 )))
-            .uri("lb://type-analysis-service"))
+            .uri("lb://medicine-service"))
 
-        .route("get_type_analysis_by_id", r -> r
-            .path("/api/type-analysis/{id}")
+        .route("get_medicine_by_id", r -> r
+            .path("/api/medicine/{id}")
             .and().method(HttpMethod.GET)
             .filters(f -> f
                 .stripPrefix(1)
                 .filter(AuthorizationFilter.ofAny(
                     Role.ADMIN.getRoleName()
                 )))
-            .uri("lb://type-analysis-service"))
+            .uri("lb://medicine-service"))
 
-        .route("update_type_analysis", r -> r
-            .path("/api/type_analysis/{id}")
+        .route("update_medicine", r -> r
+            .path("/api/medicine/{id}")
             .and().method(HttpMethod.PUT)
             .filters(f -> f
                 .stripPrefix(1)
                 .filter(AuthorizationFilter.ofAny(
                     Role.ADMIN.getRoleName()
                 )))
-            .uri("lb://type_analysis-service"))
+            .uri("lb://medicine-service"))
 
-        .route("delete_type_analysis", r -> r
-            .path("/api/type_analysis/{id}")
+        .route("delete_medicine", r -> r
+            .path("/api/medicine/{id}")
             .and().method(HttpMethod.DELETE)
             .filters(f -> f
                 .stripPrefix(1)
                 .filter(AuthorizationFilter.ofAny(
                     Role.ADMIN.getRoleName()
                 )))
-            .uri("lb://type_analysis-service"))
+            .uri("lb://medicine-service"))
 
         //----------------------------------------------------//
+
+        //----------------------------- CARRITO ANALISIS -----------------------//
+
+        .route("agregar_medicina_cart", r -> r
+            .path("/api/medicine-cart/agregar")
+            .and().method(HttpMethod.POST)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName()
+                )))
+            .uri("lb://medicine-cart"))
+
+        .route("get_all_item_medicine_cart", r -> r
+            .path("/api/medicine-cart/listar")
+            .and().method(HttpMethod.GET)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName()
+                )))
+            .uri("lb://medicine-cart"))
+
+        .route("delete_medicine-cart", r -> r
+            .path("/api/medicine-cart/quitar/{id}")
+            .and().method(HttpMethod.DELETE)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName()
+                )))
+            .uri("lb://medicine-cart"))
+
+        .route("nuevo_medicine-cart", r -> r
+            .path("/api/medicine-cart/nuevo")
+            .and().method(HttpMethod.DELETE)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName()
+                )))
+            .uri("lb://medicine-cart"))
+        
+
+
+
+        
         
         .build();
   }

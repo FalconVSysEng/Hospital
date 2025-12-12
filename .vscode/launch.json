@@ -129,7 +129,8 @@
       "mainClass": "com.hospital.schedule_service.ScheduleServiceApplication",
       "projectName": "schedule-service",
       "args": "",
-      "envFile": "${workspaceFolder}/.env"
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=55373 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=schedule-service"
     },
     {
       "type": "java",
@@ -139,7 +140,8 @@
       "mainClass": "com.hospital.appointment_service.AppointmentServiceApplication",
       "projectName": "appointment-service",
       "args": "",
-      "envFile": "${workspaceFolder}/.env"
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=55293 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=appointment-service"
     },
     {
       "type": "java",
@@ -149,7 +151,8 @@
       "mainClass": "com.hospital.receipt_service.ReceiptServiceApplication",
       "projectName": "receipt-service",
       "args": "",
-      "envFile": "${workspaceFolder}/.env"
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=55347 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=receipt-service"
     },
     {
       "type": "java",
@@ -180,6 +183,37 @@
       "cwd": "${workspaceFolder}",
       "mainClass": "com.hospital.analysis_sheet_service.AnalysisSheetServiceApplication",
       "projectName": "analysis-sheet-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=55546 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=analysis-sheet-service"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-PrescriptionServiceApplication<prescription-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.hospital.prescription_service.PrescriptionServiceApplication",
+      "projectName": "prescription-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-MedicineServiceApplication<medicine-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.hospital.medicine_service.MedicineServiceApplication",
+      "projectName": "medicine-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-MedicineCartApplication<medicine-cart>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.hospital.medicine_cart.MedicineCartApplication",
+      "projectName": "medicine-cart",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
     }
