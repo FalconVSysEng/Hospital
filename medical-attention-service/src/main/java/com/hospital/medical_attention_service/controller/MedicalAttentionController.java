@@ -41,6 +41,12 @@ public class MedicalAttentionController {
     return ResponseEntity.ok(response);
   }
 
+  @GetMapping("/{id}/simple")
+  public ResponseEntity<MedicalAttentionSimpleResponse> getMedicalAttentionByIdSimple(@PathVariable Long id) {
+    MedicalAttentionSimpleResponse response = medicalAttentionService.getMedicalAttentionByIdSimple(id);
+    return ResponseEntity.ok(response);
+  }
+
   @GetMapping
   public ResponseEntity<List<MedicalAttentionResponse>> getAllMedicalAttentions() {
     List<MedicalAttentionResponse> responses = medicalAttentionService.getAllMedicalAttentions();

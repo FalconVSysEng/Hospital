@@ -621,6 +621,16 @@ public class GatewayRoutesConfig {
                     Role.ADMIN.getRoleName()
                 )))
             .uri("lb://medical-attention-service"))
+
+        .route("get_medical_attention_by_id_simple", r -> r
+            .path("/api/medical-attention/{id}/simple")
+            .and().method(HttpMethod.GET)
+            .filters(f -> f
+                .stripPrefix(1)
+                .filter(AuthorizationFilter.ofAny(
+                    Role.ADMIN.getRoleName()
+                )))
+            .uri("lb://medical-attention-service"))
         // ----------------------------------------------------//
 
         
