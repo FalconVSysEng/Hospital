@@ -1,5 +1,6 @@
-package com.hospital.analysis_cart.model;
+package com.hospital.type_analysis_service.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,18 +11,24 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
-@AllArgsConstructor
+@Data
 @Builder
-@Table(name = "analysis-cart")
 @NoArgsConstructor
-public class AnalysisCartItem {
+@AllArgsConstructor
+@Table(name = "type_analysis")
+public class TypeAnalysis {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long typeAnalysisId;
-    private String observations;
-    private Integer quantity;
+    @Column(nullable = false, length = 100)
+    private String name;
+
+    @Column(length = 255)
+    private String description;
+
+    @Column(nullable = false)
+    private Boolean status;
 }

@@ -1,4 +1,4 @@
-package com.hospital.controller;
+package com.hospital.type_analysis_service.controller;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hospital.dto.TypeAnalysisRequestDTO;
-import com.hospital.dto.TypeAnalysisResponseDTO;
-import com.hospital.service.TypeAnalysisService;
+import com.hospital.type_analysis_service.dto.TypeAnalysisRequestDTO;
+import com.hospital.type_analysis_service.dto.TypeAnalysisResponseDTO;
+import com.hospital.type_analysis_service.service.TypeAnalysisService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

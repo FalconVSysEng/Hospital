@@ -1,4 +1,4 @@
-package com.hospital.analysis_cart.model;
+package com.hospital.prescription_service.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,14 +14,17 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @Builder
-@Table(name = "analysis-cart")
+@Table(name = "analysis_sheet_line")
 @NoArgsConstructor
-public class AnalysisCartItem {
+
+public class PrescriptionLine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private Long typeAnalysisId;
-    private String observations;
+    private Long PrescriptionId;
+    private Long medicineId;
+    private String dose;
+    private String frequency;
+    private String duration;
     private Integer quantity;
 }

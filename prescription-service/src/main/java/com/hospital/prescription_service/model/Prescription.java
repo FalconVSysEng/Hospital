@@ -1,4 +1,5 @@
-package com.hospital.model;
+package com.hospital.prescription_service.model;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,24 +12,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@Builder
-@NoArgsConstructor
+@Entity
 @AllArgsConstructor
-@Table(name = "type_analysis")
-public class TypeAnalysis {
-
+@Builder
+@Table(name = "analysis_sheet")
+@NoArgsConstructor
+public class Prescription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false, length = 100)
-    private String name;
-
-    @Column(length = 255)
-    private String description;
-
     @Column(nullable = false)
-    private Boolean status;
+    private String doctorDni;
+    @Column(nullable = false)
+    private Long attentionId; 
+    private String status; 
+    @Column(nullable = false)
+    private String notes;
+    private LocalDateTime createdAt;
 }

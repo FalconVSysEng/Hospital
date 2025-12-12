@@ -1,5 +1,8 @@
-package com.hospital.analysis_cart.model;
+package com.hospital.analysis_sheet_service.model;
 
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,14 +17,18 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @Builder
-@Table(name = "analysis-cart")
+@Table(name = "analysis_sheet")
 @NoArgsConstructor
-public class AnalysisCartItem {
+public class AnalysisSheet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private Long typeAnalysisId;
-    private String observations;
-    private Integer quantity;
+    @Column(nullable = false)
+    private String doctorDni;
+    @Column(nullable = false)
+    private Long attentionId; 
+    private String status; 
+    @Column(nullable = false)
+    private String notes;
+    private LocalDateTime createdAt;
 }

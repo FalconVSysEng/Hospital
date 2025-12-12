@@ -1,5 +1,4 @@
-package com.hospital.analysis_cart.controller;
-
+package com.hospital.medicine_cart.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,21 +12,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hospital.analysis_cart.dto.AnalysisCartItemRequestDTO;
-import com.hospital.analysis_cart.dto.AnalysisCartItemResponseDTO;
-import com.hospital.analysis_cart.service.AnalysisCartService;
+import com.hospital.medicine_cart.dto.MedicineCartItemRequestDTO;
+import com.hospital.medicine_cart.dto.MedicineCartItemResponseDTO;
+import com.hospital.medicine_cart.service.MedicineCartService;
 
 import jakarta.validation.Valid;
 
+
 @RestController
-@RequestMapping("/analysis-cart")
-public class AnalysisCartController {
+@RequestMapping("/medicine-cart")
+public class MedicineCartController {
     @Autowired
-    private AnalysisCartService service;
+    private MedicineCartService service;
 
     @PostMapping("/agregar")
-    public ResponseEntity<AnalysisCartItemResponseDTO> agregar(@Valid @RequestBody AnalysisCartItemRequestDTO dto) {
-        AnalysisCartItemResponseDTO item = service.agregar(dto);
+    public ResponseEntity<MedicineCartItemResponseDTO> agregar(@Valid @RequestBody MedicineCartItemRequestDTO dto) {
+        MedicineCartItemResponseDTO item = service.agregar(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(item);
     }
 
@@ -37,7 +37,7 @@ public class AnalysisCartController {
     }
 
     @GetMapping("/listar")
-    public List<AnalysisCartItemResponseDTO> listar() {
+    public List<MedicineCartItemResponseDTO> listar() {
         return service.listar();
     }
 

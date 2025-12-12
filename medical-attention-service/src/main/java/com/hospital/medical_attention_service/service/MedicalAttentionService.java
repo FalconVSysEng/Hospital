@@ -26,6 +26,7 @@ import com.hospital.medical_attention_service.mapper.MedicalAttentionMapper;
 import com.hospital.medical_attention_service.model.MedicalAttention;
 import com.hospital.medical_attention_service.repository.MedicalAttentionRepository;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -72,6 +73,13 @@ public class MedicalAttentionService {
         .orElseThrow(() -> new RuntimeException("Atención médica no encontrada con ID: " + id));
 
     return buildMedicalAttentionResponseFromEntity(medicalAttention);
+  }
+
+  public MedicalAttentionSimpleResponse getMedicalAttentionByIdSimple(@NonNull Long id) {
+    MedicalAttention medicalAttention = medicalAttentionRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Atención médica no encontrada con ID: " + id));
+
+    return toSimpleResponse(medicalAttention);
   }
 
   public java.util.List<MedicalAttentionResponse> getAllMedicalAttentions() {
